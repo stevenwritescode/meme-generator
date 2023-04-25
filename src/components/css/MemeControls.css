@@ -1,0 +1,52 @@
+.meme-control .center div {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.meme-control .stroke-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.meme-controls {
+  margin-left: 16px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.control-group {
+  margin: 0;
+  padding: 0;
+}
+
+.meme-control .card-header {
+  text-align: center;
+  padding: 4px 8px;
+  font-size: x-large;
+  background-color: #999;
+  border-radius: 5px 5px 0 0;
+}
+
+.meme-control .card-body {
+  padding: 2px 8px 8px;
+  background-color: #ccc;
+  border-radius: 0 0 5px 5px;
+}
+
+.meme-control .text-field-label,
+.meme-control .meme-control-label {
+  font-size: small;
+  display: block;
+  margin-top: 8px;
+  font-weight: bold;
+}
+
+.stroke-size {
+  background-color: #bbb;
+  width: 30px;
+  height: 30px;
+}

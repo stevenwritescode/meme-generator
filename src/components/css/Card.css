@@ -1,0 +1,33 @@
+.card {
+  background-color: #ddd;
+  border-color: #000;
+  border-radius: 5px;
+  margin: 16px;
+  padding: 0;
+}
+
+.card .card-section:first-child {
+  border-radius: 5px 5px 0 0;
+}
+
+.card .card-section:last-child {
+  border-radius: 0 0 5px 5px;
+}
+
+.card-header {
+  background-color: #a0b0c0;
+  color: #fff;
+  font-size: 2em;
+  padding: 35px;
+}
+
+.card-body {
+  padding: 35px;
+}
+
+.card-footer {
+  background-color: #ccc;
+  color: #555;
+  padding: 15px 35px;
+  text-align: right;
+}

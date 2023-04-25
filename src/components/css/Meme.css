@@ -1,0 +1,27 @@
+.meme {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 8px;
+}
+
+.meme-top-text {
+  margin: 0 auto;
+}
+.meme-image {
+  margin: 0 auto;
+}
+.meme-botom-text {
+  margin: 0 auto;
+}
+
+.image-load-error {
+  color: crimson;
+  text-align: center;
+  display: none;
+}
+
+.show.image-load-error {
+  display: none;
+}

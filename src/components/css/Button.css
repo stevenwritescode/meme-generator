@@ -1,0 +1,16 @@
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  padding: 8px;
+  text-align: center;
+  color: black;
+  border: 1px solid transparent;
+
+}
+
+.active {
+  border: 1px solid black;
+  box-sizing: content-box;
+}

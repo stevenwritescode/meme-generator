@@ -1,0 +1,17 @@
+.text-field {
+  margin: 0 auto;
+  padding: 0;
+}
+
+.text-field-label {
+  display: block;
+  font-size: small;
+  padding: 0;
+}
+
+.text-field-input {
+  border-radius: 5px;
+  font-size: 18pt;
+  margin: 0 auto;
+  padding: 4px;
+}
