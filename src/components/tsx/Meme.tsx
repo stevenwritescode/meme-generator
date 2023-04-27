@@ -5,12 +5,13 @@ import { useEffect, useRef, useState } from "react";
 import { EStrokeSizes } from "./MemeControls";
 
 export interface IMeme {
-  imageUrl?: string;
-  topText?: string;
-  bottomText?: string;
+  imageUrl: string;
+  topText: string;
+  bottomText: string;
   fillColor: string;
   strokeColor: string;
   strokeSize: number;
+  orientation: { rotation: number; mirrorX: boolean; mirrorY: boolean };
 }
 
 interface ITextResizeConfig {
@@ -36,6 +37,7 @@ const Meme: React.FC<IMeme & ITestable> = props => {
     [imgAlt, setImageAltText] = useState<string>(""),
     { imageUrl, topText, bottomText } = props,
     canvasRef = useRef<HTMLCanvasElement>(null);
+
   // side effect to re-generate the meme when props change
   useEffect(
     () => {
@@ -55,6 +57,7 @@ const Meme: React.FC<IMeme & ITestable> = props => {
         } else {
           img.alt = "";
         }
+
         setImageAltText(img.alt);
 
         img.onload = () => {
@@ -82,12 +85,17 @@ const Meme: React.FC<IMeme & ITestable> = props => {
 };
 
 const loadImage = (canvas: HTMLCanvasElement, img: HTMLImageElement, props: IMeme) => {
-  const { topText, bottomText, fillColor, strokeColor, strokeSize } = props;
+  const { topText, bottomText, fillColor, strokeColor, strokeSize, orientation } = props;
 
-  let width = img.width;
-  let height = img.height;
+  // get image dimensions
+  let width = img.width,
+    height = img.height,
+    canvasWidth = canvas.width,
+    canvasHeight = canvas.height,
+    centerX = canvasWidth / 2,
+    centerY = canvasHeight / 2;
 
-  //reize image to fit in a 600px square
+  // reize image to fit in a 600px square
   if (width > maxDim || height > maxDim) {
     if (width > height) {
       height *= maxDim / width;
@@ -105,14 +113,39 @@ const loadImage = (canvas: HTMLCanvasElement, img: HTMLImageElement, props: IMem
   // set the min and max size for the text based on the image size
   const maxW = maxWidthPercent * width,
     maxH = maxHeightPercent * height,
-    yPad = height * 0.025;
+    yPad = canvas.height * 0.025,
+    xScale = orientation.mirrorX ? -1 : 1,
+    yScale = orientation.mirrorY ? -1 : 1;
 
   // get 2d canvas context
   const ctx = canvas.getContext("2d");
 
   if (!ctx) return;
 
+  // clear the canvas
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // save the unrotated and unscaled state of the canvas
+  ctx.save();
+
+  // Translate the canvas to the center of the image
+  ctx.translate(centerX, centerY);
+
+  // Rotate the image
+  ctx.rotate(Math.PI / (180 / orientation.rotation));
+
+  // Flip the image
+  ctx.scale(xScale, yScale);
+
+  // Translate the canvas back to its original position
+  ctx.translate(-centerX, -centerY);
+
+  // Draw the image centered on the canvas
   ctx.drawImage(img, 0, 0, width, height);
+
+  // restore the canvas to its original state
+  ctx.restore();
+
   ctx.fillStyle = fillColor as string;
   ctx.strokeStyle = strokeColor as string;
   ctx.textAlign = "center";

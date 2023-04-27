@@ -9,7 +9,8 @@ describe("MemeControls", () => {
     bottomText: "World",
     fillColor: "#FFFFFF",
     strokeColor: "#000000",
-    strokeSize: EStrokeSizes.MEDIUM
+    strokeSize: EStrokeSizes.MEDIUM,
+    orientation: { rotation: 0, mirrorX: false, mirrorY: false }
   };
   const mockOnUpdate = jest.fn();
   const mockProps: IMeme & IMemeControls = {

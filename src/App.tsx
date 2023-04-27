@@ -5,7 +5,15 @@ import Card from "./components/tsx/Card";
 import MemeControls from "./components/tsx/MemeControls";
 
 function App() {
-  const [memeConfig, updateMemeConfig] = useState({ fillColor: "#ffffff", strokeColor: "#000000", strokeSize: 2 });
+  const [memeConfig, updateMemeConfig] = useState({
+    fillColor: "#ffffff",
+    strokeColor: "#000000",
+    strokeSize: 2,
+    imageUrl: "",
+    topText: "",
+    bottomText: "",
+    orientation: { rotation: 0, mirrorX: false, mirrorY: false }
+  });
   const handlers = {
     updateMeme: (meme: IMeme) => {
       updateMemeConfig(meme);

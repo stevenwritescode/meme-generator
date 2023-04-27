@@ -1,7 +1,6 @@
-import { act, fireEvent, getByLabelText, render, screen, waitFor } from "@testing-library/react";
+import { render, screen, } from "@testing-library/react";
 import Meme, { IMeme } from "../components/tsx/Meme";
 import MemeControls, { EStrokeSizes } from "../components/tsx/MemeControls";
-import userEvent from '@testing-library/user-event';
 
 const mockMeme: IMeme = {
   imageUrl: "https://picsum.photos/600/400",
@@ -9,7 +8,8 @@ const mockMeme: IMeme = {
   bottomText: "Bottom Text",
   fillColor: "#ffffff",
   strokeColor: "#000000",
-  strokeSize: EStrokeSizes.MEDIUM
+  strokeSize: EStrokeSizes.MEDIUM,
+  orientation: {rotation: 0, mirrorX: false, mirrorY: false}
 };
 
 describe("Meme", () => {
@@ -25,7 +25,7 @@ describe("Meme", () => {
   });
 
   it("renders a meme with the correct image and text", async () => {
-    const { findByTestId, rerender } = render(<><Meme {...mockMeme} /><MemeControls fillColor={""} strokeColor={""} strokeSize={0} onUpdate={(meme: IMeme): void => { return; }} /></>);
+    const { findByTestId, rerender } = render(<><Meme {...mockMeme} /><MemeControls {...mockMeme} onUpdate={(meme: IMeme): void => { return; }} /></>);
     let img = await screen.findByAltText("Top Text | Bottom Text");
     expect(img).toBeInTheDocument();
     const canvas = (await findByTestId("meme-canvas")) as HTMLCanvasElement;
@@ -34,7 +34,7 @@ describe("Meme", () => {
     // simulate a blur event on the imageUrl field to trigger the state update
     const imageUrlField = await screen.findByLabelText("Image URL");
 
-    await rerender(<Meme fillColor="#ffffff" strokeColor="#000000" strokeSize={EStrokeSizes.MEDIUM} imageUrl="https://picsum.photos/800" topText={mockMeme.topText} bottomText={mockMeme.bottomText} />);
+    await rerender(<Meme {...mockMeme} />);
 
     img = await screen.findByAltText("Top Text | Bottom Text");
     expect(img).toBeInTheDocument();

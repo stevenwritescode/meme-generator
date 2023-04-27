@@ -2,12 +2,12 @@ import { AriaRole, ReactNode } from "react";
 import "../css/Card.css";
 import { IExtendableClass, ITestable, IWrapper } from "../../common";
 
-export interface ICard {
+export interface ICard extends IWrapper {
   header?: string | ReactNode;
   footer?: string | ReactNode;
 }
 
-const Card: React.FC<ICard & IWrapper & IExtendableClass & ITestable> = props => {
+const Card: React.FC<ICard & IExtendableClass & ITestable> = props => {
   const { header, footer, children, className, testId } = props,
     classVar = className ? className + " card" : "card";
 
